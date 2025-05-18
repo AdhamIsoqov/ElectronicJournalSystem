@@ -3,8 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Configuration;
-using ElectronicJournalSystem.Data;
-using ElectronicJournalSystem.Models;
 
 namespace ElectronicJournalSystem.Forms.Admin
 {

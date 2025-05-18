@@ -28,30 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.OqituvchiDataGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.oqituvchiFISHtxt = new System.Windows.Forms.TextBox();
+            this.mutaxasislikTxt = new System.Windows.Forms.TextBox();
+            this.oqituvchiLogintxt = new System.Windows.Forms.TextBox();
+            this.oqituvchiParoltxt = new System.Windows.Forms.TextBox();
             this.delBtn = new System.Windows.Forms.Button();
             this.upgBtn = new System.Windows.Forms.Button();
             this.addBtn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OqituvchiDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // OqituvchiDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(33, 41);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(916, 488);
-            this.dataGridView1.TabIndex = 0;
+            this.OqituvchiDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.OqituvchiDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.OqituvchiDataGridView.Location = new System.Drawing.Point(33, 41);
+            this.OqituvchiDataGridView.Name = "OqituvchiDataGridView";
+            this.OqituvchiDataGridView.RowHeadersWidth = 51;
+            this.OqituvchiDataGridView.RowTemplate.Height = 24;
+            this.OqituvchiDataGridView.Size = new System.Drawing.Size(916, 488);
+            this.OqituvchiDataGridView.TabIndex = 0;
             // 
             // label1
             // 
@@ -79,7 +80,6 @@
             this.label3.Size = new System.Drawing.Size(60, 25);
             this.label3.TabIndex = 3;
             this.label3.Text = "Login";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -89,37 +89,34 @@
             this.label4.Size = new System.Drawing.Size(57, 25);
             this.label4.TabIndex = 4;
             this.label4.Text = "Parol";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
-            // textBox1
+            // oqituvchiFISHtxt
             // 
-            this.textBox1.Location = new System.Drawing.Point(42, 561);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(222, 30);
-            this.textBox1.TabIndex = 5;
+            this.oqituvchiFISHtxt.Location = new System.Drawing.Point(42, 561);
+            this.oqituvchiFISHtxt.Name = "oqituvchiFISHtxt";
+            this.oqituvchiFISHtxt.Size = new System.Drawing.Size(222, 30);
+            this.oqituvchiFISHtxt.TabIndex = 5;
             // 
-            // textBox2
+            // mutaxasislikTxt
             // 
-            this.textBox2.Location = new System.Drawing.Point(269, 561);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(222, 30);
-            this.textBox2.TabIndex = 6;
+            this.mutaxasislikTxt.Location = new System.Drawing.Point(269, 561);
+            this.mutaxasislikTxt.Name = "mutaxasislikTxt";
+            this.mutaxasislikTxt.Size = new System.Drawing.Size(222, 30);
+            this.mutaxasislikTxt.TabIndex = 6;
             // 
-            // textBox3
+            // oqituvchiLogintxt
             // 
-            this.textBox3.Location = new System.Drawing.Point(497, 561);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(222, 30);
-            this.textBox3.TabIndex = 7;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.oqituvchiLogintxt.Location = new System.Drawing.Point(497, 561);
+            this.oqituvchiLogintxt.Name = "oqituvchiLogintxt";
+            this.oqituvchiLogintxt.Size = new System.Drawing.Size(222, 30);
+            this.oqituvchiLogintxt.TabIndex = 7;
             // 
-            // textBox4
+            // oqituvchiParoltxt
             // 
-            this.textBox4.Location = new System.Drawing.Point(725, 561);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(222, 30);
-            this.textBox4.TabIndex = 8;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.oqituvchiParoltxt.Location = new System.Drawing.Point(725, 561);
+            this.oqituvchiParoltxt.Name = "oqituvchiParoltxt";
+            this.oqituvchiParoltxt.Size = new System.Drawing.Size(222, 30);
+            this.oqituvchiParoltxt.TabIndex = 8;
             // 
             // delBtn
             // 
@@ -162,21 +159,22 @@
             this.Controls.Add(this.addBtn);
             this.Controls.Add(this.upgBtn);
             this.Controls.Add(this.delBtn);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.oqituvchiParoltxt);
+            this.Controls.Add(this.oqituvchiLogintxt);
+            this.Controls.Add(this.mutaxasislikTxt);
+            this.Controls.Add(this.oqituvchiFISHtxt);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.OqituvchiDataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Oqituvchilar";
             this.Text = "Oqituvchilar";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Oqituvchilar_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.OqituvchiDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,15 +182,15 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView OqituvchiDataGridView;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox oqituvchiFISHtxt;
+        private System.Windows.Forms.TextBox mutaxasislikTxt;
+        private System.Windows.Forms.TextBox oqituvchiLogintxt;
+        private System.Windows.Forms.TextBox oqituvchiParoltxt;
         private System.Windows.Forms.Button delBtn;
         private System.Windows.Forms.Button upgBtn;
         private System.Windows.Forms.Button addBtn;

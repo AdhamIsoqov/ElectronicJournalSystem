@@ -34,7 +34,7 @@ namespace ElectronicJournalSystem.Forms.Login
                     new AdminForm().Show();
                     this.Hide();
                     string role = reader["Role"].ToString();
-                    MessageBox.Show("Xush kelibsiz, " + role);
+                    // MessageBox.Show("Xush kelibsiz, " + role);
                 }
                 else
                 {
