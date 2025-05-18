@@ -11,89 +11,65 @@ namespace ElectronicJournalSystem.Forms.Admin
     public partial class AdminForm : Form
     {
         string connectionString = ConfigurationManager.ConnectionStrings["ElectronicJurnalDB"].ConnectionString;
-        DBHelper db = new DBHelper();
 
         public AdminForm()
         {
             InitializeComponent();
-            LoadUsers();
         }
 
-        private void LoadUsers(string filter = "")
+        private void button1_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                string query = "SELECT Id, FullName, Phone, Login, Role FROM Users";
-
-                if (!string.IsNullOrEmpty(filter))
-                {
-                    query += " WHERE FullName LIKE @filter OR Login LIKE @filter OR Phone LIKE @filter";
-                }
-
-                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-
-                if (!string.IsNullOrEmpty(filter))
-                    adapter.SelectCommand.Parameters.AddWithValue("@filter", "%" + filter + "%");
-
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                dgvUsers.DataSource = dt;
-            }
+            Oqituvchilar form = new Oqituvchilar();
+            form.TopLevel = false;
+            formPanel.Controls.Clear();
+            form.BringToFront();
+            formPanel.Controls.Add(form);
+            form.Show();
         }
 
-        private void btnAddUser_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            AddUserForm addForm = new AddUserForm();
-            if (addForm.ShowDialog() == DialogResult.OK)
-            {
-                LoadUsers();
-            }
+            Talabalar form = new Talabalar();
+            form.TopLevel = false;
+            formPanel.Controls.Clear();
+            form.BringToFront();
+            formPanel.Controls.Add(form);
+            form.Show();
         }
 
-        private void btnDeleteUser_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            if (dgvUsers.SelectedRows.Count > 0)
-            {
-                int userId = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["Id"].Value);
-                DialogResult dr = MessageBox.Show("Foydalanuvchini o‘chirishni xohlaysizmi?", "Tasdiqlash", MessageBoxButtons.YesNo);
-                if (dr == DialogResult.Yes)
-                {
-                    db.DeleteUser(userId);
-                    LoadUsers();
-                }
-            }
-            else
-            {
-                MessageBox.Show("O‘chirish uchun foydalanuvchini tanlang.");
-            }
+            Guruhlar form = new Guruhlar();
+            form.TopLevel = false;
+            formPanel.Controls.Clear();
+            form.BringToFront();
+            formPanel.Controls.Add(form);
+            form.Show();
         }
 
-        private void btnEditUser_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            if (dgvUsers.SelectedRows.Count > 0)
-            {
-                int userId = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["Id"].Value);
-                User user = db.GetUserById(userId);
-
-                if (user != null)
-                {
-                    EditUserForm editForm = new EditUserForm(user);
-                    if (editForm.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadUsers();
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Tahrirlash uchun foydalanuvchini tanlang.");
-            }
+            Fanlar form = new Fanlar();
+            form.TopLevel = false;
+            formPanel.Controls.Clear();
+            form.BringToFront();
+            formPanel.Controls.Add(form);
+            form.Show();
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
-            LoadUsers(txtSearch.Text.Trim());
+            Baholar form = new Baholar();
+            form.TopLevel = false;
+            formPanel.Controls.Clear();
+            form.BringToFront();
+            formPanel.Controls.Add(form);
+            form.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
