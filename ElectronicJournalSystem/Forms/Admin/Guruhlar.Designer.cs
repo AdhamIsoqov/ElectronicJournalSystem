@@ -31,14 +31,14 @@
             this.addBtn = new System.Windows.Forms.Button();
             this.upgBtn = new System.Windows.Forms.Button();
             this.delBtn = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.kurstxt = new System.Windows.Forms.TextBox();
+            this.yonalishtxt = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.GuruhDataGridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.GuruhDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // addBtn
@@ -51,6 +51,7 @@
             this.addBtn.TabIndex = 35;
             this.addBtn.Text = "Qo\'shish";
             this.addBtn.UseVisualStyleBackColor = false;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // upgBtn
             // 
@@ -62,6 +63,7 @@
             this.upgBtn.TabIndex = 34;
             this.upgBtn.Text = "Yangilash";
             this.upgBtn.UseVisualStyleBackColor = false;
+            this.upgBtn.Click += new System.EventHandler(this.upgBtn_Click);
             // 
             // delBtn
             // 
@@ -73,20 +75,21 @@
             this.delBtn.TabIndex = 33;
             this.delBtn.Text = "O\'chirish";
             this.delBtn.UseVisualStyleBackColor = false;
+            this.delBtn.Click += new System.EventHandler(this.delBtn_Click);
             // 
-            // textBox3
+            // kurstxt
             // 
-            this.textBox3.Location = new System.Drawing.Point(671, 562);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(276, 30);
-            this.textBox3.TabIndex = 31;
+            this.kurstxt.Location = new System.Drawing.Point(671, 562);
+            this.kurstxt.Name = "kurstxt";
+            this.kurstxt.Size = new System.Drawing.Size(276, 30);
+            this.kurstxt.TabIndex = 31;
             // 
-            // textBox2
+            // yonalishtxt
             // 
-            this.textBox2.Location = new System.Drawing.Point(325, 563);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(340, 30);
-            this.textBox2.TabIndex = 30;
+            this.yonalishtxt.Location = new System.Drawing.Point(325, 563);
+            this.yonalishtxt.Name = "yonalishtxt";
+            this.yonalishtxt.Size = new System.Drawing.Size(340, 30);
+            this.yonalishtxt.TabIndex = 30;
             // 
             // textBox1
             // 
@@ -122,15 +125,18 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "Guruh Nomi:";
             // 
-            // dataGridView1
+            // GuruhDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(34, 42);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(916, 488);
-            this.dataGridView1.TabIndex = 24;
+            this.GuruhDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.GuruhDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GuruhDataGridView.Location = new System.Drawing.Point(34, 42);
+            this.GuruhDataGridView.Name = "GuruhDataGridView";
+            this.GuruhDataGridView.ReadOnly = true;
+            this.GuruhDataGridView.RowHeadersWidth = 51;
+            this.GuruhDataGridView.RowTemplate.Height = 24;
+            this.GuruhDataGridView.Size = new System.Drawing.Size(916, 488);
+            this.GuruhDataGridView.TabIndex = 24;
+            this.GuruhDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GuruhDataGridView_CellClick);
             // 
             // Guruhlar
             // 
@@ -140,19 +146,20 @@
             this.Controls.Add(this.addBtn);
             this.Controls.Add(this.upgBtn);
             this.Controls.Add(this.delBtn);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.kurstxt);
+            this.Controls.Add(this.yonalishtxt);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.GuruhDataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Guruhlar";
             this.Text = "Guruhlar";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Guruhlar_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.GuruhDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,12 +170,12 @@
         private System.Windows.Forms.Button addBtn;
         private System.Windows.Forms.Button upgBtn;
         private System.Windows.Forms.Button delBtn;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox kurstxt;
+        private System.Windows.Forms.TextBox yonalishtxt;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView GuruhDataGridView;
     }
 }

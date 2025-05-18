@@ -31,16 +31,16 @@
             this.addBtn = new System.Windows.Forms.Button();
             this.upgBtn = new System.Windows.Forms.Button();
             this.delBtn = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.talabaParoltxt = new System.Windows.Forms.TextBox();
+            this.talabaLogintxt = new System.Windows.Forms.TextBox();
+            this.TalabaFISHtxt = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.TalabaDataGridView = new System.Windows.Forms.DataGridView();
+            this.guruhNomiComboBox = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.TalabaDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // addBtn
@@ -53,6 +53,7 @@
             this.addBtn.TabIndex = 23;
             this.addBtn.Text = "Qo\'shish";
             this.addBtn.UseVisualStyleBackColor = false;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // upgBtn
             // 
@@ -64,6 +65,7 @@
             this.upgBtn.TabIndex = 22;
             this.upgBtn.Text = "Yangilash";
             this.upgBtn.UseVisualStyleBackColor = false;
+            this.upgBtn.Click += new System.EventHandler(this.upgBtn_Click);
             // 
             // delBtn
             // 
@@ -75,34 +77,28 @@
             this.delBtn.TabIndex = 21;
             this.delBtn.Text = "O\'chirish";
             this.delBtn.UseVisualStyleBackColor = false;
+            this.delBtn.Click += new System.EventHandler(this.delBtn_Click);
             // 
-            // textBox4
+            // talabaParoltxt
             // 
-            this.textBox4.Location = new System.Drawing.Point(726, 562);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(222, 30);
-            this.textBox4.TabIndex = 20;
+            this.talabaParoltxt.Location = new System.Drawing.Point(726, 563);
+            this.talabaParoltxt.Name = "talabaParoltxt";
+            this.talabaParoltxt.Size = new System.Drawing.Size(222, 30);
+            this.talabaParoltxt.TabIndex = 19;
             // 
-            // textBox3
+            // talabaLogintxt
             // 
-            this.textBox3.Location = new System.Drawing.Point(498, 562);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(222, 30);
-            this.textBox3.TabIndex = 19;
+            this.talabaLogintxt.Location = new System.Drawing.Point(498, 563);
+            this.talabaLogintxt.Name = "talabaLogintxt";
+            this.talabaLogintxt.Size = new System.Drawing.Size(222, 30);
+            this.talabaLogintxt.TabIndex = 18;
             // 
-            // textBox2
+            // TalabaFISHtxt
             // 
-            this.textBox2.Location = new System.Drawing.Point(270, 562);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(222, 30);
-            this.textBox2.TabIndex = 18;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(43, 562);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(222, 30);
-            this.textBox1.TabIndex = 17;
+            this.TalabaFISHtxt.Location = new System.Drawing.Point(43, 562);
+            this.TalabaFISHtxt.Name = "TalabaFISHtxt";
+            this.TalabaFISHtxt.Size = new System.Drawing.Size(222, 30);
+            this.TalabaFISHtxt.TabIndex = 17;
             // 
             // label4
             // 
@@ -140,39 +136,51 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "F.I.Sh";
             // 
-            // dataGridView1
+            // TalabaDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(34, 42);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(916, 488);
-            this.dataGridView1.TabIndex = 12;
+            this.TalabaDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.TalabaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TalabaDataGridView.Location = new System.Drawing.Point(34, 42);
+            this.TalabaDataGridView.Name = "TalabaDataGridView";
+            this.TalabaDataGridView.ReadOnly = true;
+            this.TalabaDataGridView.RowHeadersWidth = 51;
+            this.TalabaDataGridView.RowTemplate.Height = 24;
+            this.TalabaDataGridView.Size = new System.Drawing.Size(916, 488);
+            this.TalabaDataGridView.TabIndex = 12;
+            this.TalabaDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TalabaDataGridView_CellClick);
+            // 
+            // guruhNomiComboBox
+            // 
+            this.guruhNomiComboBox.FormattingEnabled = true;
+            this.guruhNomiComboBox.Location = new System.Drawing.Point(271, 562);
+            this.guruhNomiComboBox.Name = "guruhNomiComboBox";
+            this.guruhNomiComboBox.Size = new System.Drawing.Size(221, 33);
+            this.guruhNomiComboBox.TabIndex = 24;
             // 
             // Talabalar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(985, 694);
+            this.Controls.Add(this.guruhNomiComboBox);
             this.Controls.Add(this.addBtn);
             this.Controls.Add(this.upgBtn);
             this.Controls.Add(this.delBtn);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.talabaParoltxt);
+            this.Controls.Add(this.talabaLogintxt);
+            this.Controls.Add(this.TalabaFISHtxt);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.TalabaDataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Talabalar";
             this.Text = "Talabalar";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Talabalar_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.TalabaDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,14 +191,14 @@
         private System.Windows.Forms.Button addBtn;
         private System.Windows.Forms.Button upgBtn;
         private System.Windows.Forms.Button delBtn;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox talabaParoltxt;
+        private System.Windows.Forms.TextBox talabaLogintxt;
+        private System.Windows.Forms.TextBox TalabaFISHtxt;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView TalabaDataGridView;
+        private System.Windows.Forms.ComboBox guruhNomiComboBox;
     }
 }

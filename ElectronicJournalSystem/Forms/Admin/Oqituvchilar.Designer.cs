@@ -49,10 +49,12 @@
             this.OqituvchiDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OqituvchiDataGridView.Location = new System.Drawing.Point(33, 41);
             this.OqituvchiDataGridView.Name = "OqituvchiDataGridView";
+            this.OqituvchiDataGridView.ReadOnly = true;
             this.OqituvchiDataGridView.RowHeadersWidth = 51;
             this.OqituvchiDataGridView.RowTemplate.Height = 24;
             this.OqituvchiDataGridView.Size = new System.Drawing.Size(916, 488);
             this.OqituvchiDataGridView.TabIndex = 0;
+            this.OqituvchiDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OqituvchiDataGridView_CellClick);
             // 
             // label1
             // 
@@ -128,6 +130,7 @@
             this.delBtn.TabIndex = 9;
             this.delBtn.Text = "O\'chirish";
             this.delBtn.UseVisualStyleBackColor = false;
+            this.delBtn.Click += new System.EventHandler(this.delBtn_Click);
             // 
             // upgBtn
             // 
@@ -139,6 +142,7 @@
             this.upgBtn.TabIndex = 10;
             this.upgBtn.Text = "Yangilash";
             this.upgBtn.UseVisualStyleBackColor = false;
+            this.upgBtn.Click += new System.EventHandler(this.upgBtn_Click);
             // 
             // addBtn
             // 
@@ -150,6 +154,7 @@
             this.addBtn.TabIndex = 11;
             this.addBtn.Text = "Qo\'shish";
             this.addBtn.UseVisualStyleBackColor = false;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // Oqituvchilar
             // 

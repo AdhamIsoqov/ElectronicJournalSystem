@@ -31,14 +31,14 @@
             this.addBtn = new System.Windows.Forms.Button();
             this.upgBtn = new System.Windows.Forms.Button();
             this.delBtn = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.kreditTxt = new System.Windows.Forms.TextBox();
+            this.fannarNametxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.FanlarDataGridView = new System.Windows.Forms.DataGridView();
+            this.oqituvchiComboBox = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.FanlarDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // addBtn
@@ -51,6 +51,7 @@
             this.addBtn.TabIndex = 45;
             this.addBtn.Text = "Qo\'shish";
             this.addBtn.UseVisualStyleBackColor = false;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // upgBtn
             // 
@@ -62,6 +63,7 @@
             this.upgBtn.TabIndex = 44;
             this.upgBtn.Text = "Yangilash";
             this.upgBtn.UseVisualStyleBackColor = false;
+            this.upgBtn.Click += new System.EventHandler(this.upgBtn_Click);
             // 
             // delBtn
             // 
@@ -73,27 +75,21 @@
             this.delBtn.TabIndex = 43;
             this.delBtn.Text = "O\'chirish";
             this.delBtn.UseVisualStyleBackColor = false;
+            this.delBtn.Click += new System.EventHandler(this.delBtn_Click);
             // 
-            // textBox3
+            // kreditTxt
             // 
-            this.textBox3.Location = new System.Drawing.Point(671, 562);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(276, 30);
-            this.textBox3.TabIndex = 42;
+            this.kreditTxt.Location = new System.Drawing.Point(671, 562);
+            this.kreditTxt.Name = "kreditTxt";
+            this.kreditTxt.Size = new System.Drawing.Size(276, 30);
+            this.kreditTxt.TabIndex = 42;
             // 
-            // textBox2
+            // fannarNametxt
             // 
-            this.textBox2.Location = new System.Drawing.Point(325, 563);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(340, 30);
-            this.textBox2.TabIndex = 41;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(43, 562);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(276, 30);
-            this.textBox1.TabIndex = 40;
+            this.fannarNametxt.Location = new System.Drawing.Point(43, 562);
+            this.fannarNametxt.Name = "fannarNametxt";
+            this.fannarNametxt.Size = new System.Drawing.Size(276, 30);
+            this.fannarNametxt.TabIndex = 40;
             // 
             // label3
             // 
@@ -122,37 +118,49 @@
             this.label1.TabIndex = 37;
             this.label1.Text = "Fan nomi:";
             // 
-            // dataGridView1
+            // FanlarDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(34, 42);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(916, 488);
-            this.dataGridView1.TabIndex = 36;
+            this.FanlarDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.FanlarDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FanlarDataGridView.Location = new System.Drawing.Point(34, 42);
+            this.FanlarDataGridView.Name = "FanlarDataGridView";
+            this.FanlarDataGridView.ReadOnly = true;
+            this.FanlarDataGridView.RowHeadersWidth = 51;
+            this.FanlarDataGridView.RowTemplate.Height = 24;
+            this.FanlarDataGridView.Size = new System.Drawing.Size(916, 488);
+            this.FanlarDataGridView.TabIndex = 36;
+            this.FanlarDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FanlarDataGridView_CellClick);
+            // 
+            // oqituvchiComboBox
+            // 
+            this.oqituvchiComboBox.FormattingEnabled = true;
+            this.oqituvchiComboBox.Location = new System.Drawing.Point(325, 559);
+            this.oqituvchiComboBox.Name = "oqituvchiComboBox";
+            this.oqituvchiComboBox.Size = new System.Drawing.Size(340, 33);
+            this.oqituvchiComboBox.TabIndex = 46;
             // 
             // Fanlar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(985, 694);
+            this.Controls.Add(this.oqituvchiComboBox);
             this.Controls.Add(this.addBtn);
             this.Controls.Add(this.upgBtn);
             this.Controls.Add(this.delBtn);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.kreditTxt);
+            this.Controls.Add(this.fannarNametxt);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.FanlarDataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Fanlar";
             this.Text = "Fanlar";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Fanlar_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.FanlarDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,12 +171,12 @@
         private System.Windows.Forms.Button addBtn;
         private System.Windows.Forms.Button upgBtn;
         private System.Windows.Forms.Button delBtn;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox kreditTxt;
+        private System.Windows.Forms.TextBox fannarNametxt;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView FanlarDataGridView;
+        private System.Windows.Forms.ComboBox oqituvchiComboBox;
     }
 }

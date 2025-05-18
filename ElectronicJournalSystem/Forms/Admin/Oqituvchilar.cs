@@ -19,6 +19,7 @@ namespace ElectronicJournalSystem.Forms.Admin
             InitializeComponent();
         }
         string connectionString = ConfigurationManager.ConnectionStrings["ElectronicJurnalDB"].ConnectionString;
+        private int selectedOqituvchiId = -1;
         private void Oqituvchilar_Load(object sender, EventArgs e)
         {
             OqituvchilarDataGridViewLoad();
@@ -49,12 +50,12 @@ namespace ElectronicJournalSystem.Forms.Admin
         }
         private void addBtn_Click(object sender, EventArgs e)
         {
-            string fish = oqituvchiFISHtxt.Text.Trim();
-            string mutaxassislik = mutaxasislikTxt.Text.Trim();
+            string fullName = oqituvchiFISHtxt.Text.Trim();
+            string specialty = mutaxasislikTxt.Text.Trim();
             string login = oqituvchiLogintxt.Text.Trim();
-            string parol = oqituvchiParoltxt.Text.Trim();
-            if (string.IsNullOrWhiteSpace(fish) || string.IsNullOrWhiteSpace(mutaxassislik) ||
-                string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(parol))
+            string password = oqituvchiParoltxt.Text.Trim();
+            if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(specialty) ||
+                string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Iltimos, barcha maydonlarni to‘ldiring.", "Ogohlantirish", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -62,17 +63,17 @@ namespace ElectronicJournalSystem.Forms.Admin
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    connection.Open();
+                    conn.Open();
 
-                    string query = "INSERT INTO Oqituvchilar (FISH, Mutaxassislik, Login, Parol) VALUES (@FISH, @Mutaxassislik, @Login, @Parol)";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    string query = "INSERT INTO Teachers (FullName, Specialty, Login, Password) VALUES (@FullName, @Specialty, @Login, @Password)";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@FISH", fish);
-                        cmd.Parameters.AddWithValue("@Mutaxassislik", mutaxassislik);
+                        cmd.Parameters.AddWithValue("@FullName", fullName);
+                        cmd.Parameters.AddWithValue("@Specialty", specialty);
                         cmd.Parameters.AddWithValue("@Login", login);
-                        cmd.Parameters.AddWithValue("@Parol", parol);
+                        cmd.Parameters.AddWithValue("@Password", password);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -82,11 +83,95 @@ namespace ElectronicJournalSystem.Forms.Admin
                 oqituvchiLogintxt.Clear();
                 oqituvchiParoltxt.Clear();
                 OqituvchilarDataGridViewLoad();
+                ClearInputs();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Xatolik yuz berdi: " + ex.Message, "Xatolik", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void upgBtn_Click(object sender, EventArgs e)
+        {
+            if (selectedOqituvchiId == -1)
+            {
+                MessageBox.Show("Iltimos, yangilash uchun jadvaldan o‘qituvchini tanlang.");
+                return;
+            }
+
+            string fullname = oqituvchiFISHtxt.Text.Trim();
+            string specialty = mutaxasislikTxt.Text.Trim();
+            string login = oqituvchiLogintxt.Text.Trim();
+            string password = oqituvchiParoltxt.Text.Trim();
+
+            if (string.IsNullOrEmpty(fullname) || string.IsNullOrEmpty(specialty) || string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Barcha maydonlarni to‘ldiring.");
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    string query = "UPDATE Teachers SET FullName = @fullName, Specialty = @specialty, Login = @login, Password = @password WHERE Id = @Id";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@FullName", fullname);
+                        cmd.Parameters.AddWithValue("@Specialty", specialty);
+                        cmd.Parameters.AddWithValue("@Login", login);
+                        cmd.Parameters.AddWithValue("@Password", password);
+                        cmd.Parameters.AddWithValue("@Id", selectedOqituvchiId);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("O‘qituvchi ma’lumoti muvaffaqiyatli yangilandi.");
+                            OqituvchilarDataGridViewLoad(); 
+                            ClearInputs();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Yangilash amalga oshmadi.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Xatolik yuz berdi: " + ex.Message);
+            }
+        }
+
+        private void OqituvchiDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = OqituvchiDataGridView.Rows[e.RowIndex];
+                oqituvchiFISHtxt.Text = selectedRow.Cells["FullName"].Value?.ToString();
+                mutaxasislikTxt.Text = selectedRow.Cells["Specialty"].Value?.ToString();
+                oqituvchiLogintxt.Text = selectedRow.Cells["Login"].Value?.ToString();
+                oqituvchiParoltxt.Text = selectedRow.Cells["Password"].Value?.ToString();
+                selectedOqituvchiId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
+            }
+        }
+
+        private void delBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ClearInputs()
+        {
+            oqituvchiFISHtxt.Clear();
+            mutaxasislikTxt.Clear();
+            oqituvchiLogintxt.Clear();
+            oqituvchiParoltxt.Clear();
+            selectedOqituvchiId = -1;
+        }
+
     }
 }
