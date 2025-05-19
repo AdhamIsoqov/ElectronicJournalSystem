@@ -37,11 +37,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.OqituvchiFanDataGridView = new System.Windows.Forms.DataGridView();
+            this.TalabaFanDataGridView = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
-            this.BahoNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.OqituvchiFanDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BahoNumericUpDown)).BeginInit();
+            this.BahoniKiritish = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.TalabaFanDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BahoniKiritish)).BeginInit();
             this.SuspendLayout();
             // 
             // TalabaComboBox
@@ -131,17 +131,17 @@
             this.label1.TabIndex = 40;
             this.label1.Text = "Fanni tanlash";
             // 
-            // OqituvchiFanDataGridView
+            // TalabaFanDataGridView
             // 
-            this.OqituvchiFanDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.OqituvchiFanDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.OqituvchiFanDataGridView.Location = new System.Drawing.Point(53, 26);
-            this.OqituvchiFanDataGridView.Name = "OqituvchiFanDataGridView";
-            this.OqituvchiFanDataGridView.ReadOnly = true;
-            this.OqituvchiFanDataGridView.RowHeadersWidth = 51;
-            this.OqituvchiFanDataGridView.RowTemplate.Height = 24;
-            this.OqituvchiFanDataGridView.Size = new System.Drawing.Size(916, 488);
-            this.OqituvchiFanDataGridView.TabIndex = 39;
+            this.TalabaFanDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.TalabaFanDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TalabaFanDataGridView.Location = new System.Drawing.Point(53, 26);
+            this.TalabaFanDataGridView.Name = "TalabaFanDataGridView";
+            this.TalabaFanDataGridView.ReadOnly = true;
+            this.TalabaFanDataGridView.RowHeadersWidth = 51;
+            this.TalabaFanDataGridView.RowTemplate.Height = 24;
+            this.TalabaFanDataGridView.Size = new System.Drawing.Size(916, 488);
+            this.TalabaFanDataGridView.TabIndex = 39;
             // 
             // label4
             // 
@@ -152,19 +152,19 @@
             this.label4.TabIndex = 49;
             this.label4.Text = "Talaba";
             // 
-            // BahoNumericUpDown
+            // BahoniKiritish
             // 
-            this.BahoNumericUpDown.Location = new System.Drawing.Point(746, 549);
-            this.BahoNumericUpDown.Name = "BahoNumericUpDown";
-            this.BahoNumericUpDown.Size = new System.Drawing.Size(220, 30);
-            this.BahoNumericUpDown.TabIndex = 50;
+            this.BahoniKiritish.Location = new System.Drawing.Point(746, 549);
+            this.BahoniKiritish.Name = "BahoniKiritish";
+            this.BahoniKiritish.Size = new System.Drawing.Size(220, 30);
+            this.BahoniKiritish.TabIndex = 50;
             // 
             // TalabalarRoyxati
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1017, 669);
-            this.Controls.Add(this.BahoNumericUpDown);
+            this.Controls.Add(this.BahoniKiritish);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.TalabaComboBox);
             this.Controls.Add(this.FanComboBox);
@@ -175,14 +175,14 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.OqituvchiFanDataGridView);
+            this.Controls.Add(this.TalabaFanDataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TalabalarRoyxati";
             this.Text = "TalabalarRoyxati";
-            ((System.ComponentModel.ISupportInitialize)(this.OqituvchiFanDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BahoNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TalabaFanDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BahoniKiritish)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,8 +199,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView OqituvchiFanDataGridView;
+        private System.Windows.Forms.DataGridView TalabaFanDataGridView;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown BahoNumericUpDown;
+        private System.Windows.Forms.NumericUpDown BahoniKiritish;
     }
 }

@@ -1,109 +1,331 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace ElectronicJournalSystem.Forms.Teacher
 {
     public partial class TalabalarRoyxati : Form
     {
-        public class BahoModel
-        {
-            public string Fan { get; set; }
-            public string Guruh { get; set; }
-            public string Talaba { get; set; }
-            public int Baho { get; set; }
-        }
-
-        private List<BahoModel> baholar = new List<BahoModel>();
+        string connectionString = ConfigurationManager.ConnectionStrings["ElectronicJurnalDB"].ConnectionString;
+        private int selectedId = -1;
 
         public TalabalarRoyxati()
         {
             InitializeComponent();
-            LoadData();
+            Load += TalabalarniBiriktirish_Load;
+            TalabaFanDataGridView.CellClick += TalabaFanDataGridView_CellClick;
+
+            addBtn.Click += addBtn_Click;
+            upgBtn.Click += upgBtn_Click;
+            delBtn.Click += delBtn_Click;
         }
 
-        private void LoadData()
+        private void TalabalarniBiriktirish_Load(object sender, EventArgs e)
         {
-            FanComboBox.Items.AddRange(new string[] { "Matematika", "Ingliz tili", "Fizika" });
-            GuruhComboBox.Items.AddRange(new string[] { "1-Guruh", "2-Guruh", "3-Guruh" });
-            TalabaComboBox.Items.AddRange(new string[] { "Aliyev Aziz", "Karimova Laylo", "Turgunov Sanjar" });
+            LoadSubjects();
+            LoadStudents();
+            LoadGroups();
+            LoadStudentSubjectsGrid();
+        }
 
-            FanComboBox.SelectedIndex = 0;
-            GuruhComboBox.SelectedIndex = 0;
-            TalabaComboBox.SelectedIndex = 0;
+        private void LoadSubjects()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT Id, Name FROM Subjects";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
 
-            BahoNumericUpDown.Minimum = 0;
-            BahoNumericUpDown.Maximum = 100;
+                FanComboBox.DisplayMember = "Name";
+                FanComboBox.ValueMember = "Id";
+                FanComboBox.DataSource = dt;
+                FanComboBox.SelectedIndex = -1;
+            }
+        }
 
-            UpdateGrid();
+        private void LoadStudents()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT Id, FullName FROM Students";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                TalabaComboBox.DisplayMember = "FullName";
+                TalabaComboBox.ValueMember = "Id";
+                TalabaComboBox.DataSource = dt;
+                TalabaComboBox.SelectedIndex = -1;
+            }
+        }
+
+        private void LoadGroups()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT Id, Name FROM Groups";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                GuruhComboBox.DisplayMember = "Name";
+                GuruhComboBox.ValueMember = "Id";
+                GuruhComboBox.DataSource = dt;
+                GuruhComboBox.SelectedIndex = -1;
+            }
+        }
+
+        private void LoadStudentSubjectsGrid()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    SELECT ss.Id, s.FullName AS Talaba, su.Name AS Fan, g.Name AS Guruh, ss.Grade AS Baho
+                    FROM StudentSubjects ss
+                    INNER JOIN Students s ON ss.StudentId = s.Id
+                    INNER JOIN Subjects su ON ss.SubjectId = su.Id
+                    LEFT JOIN Groups g ON s.GroupId = g.Id";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                TalabaFanDataGridView.DataSource = dt;
+                TalabaFanDataGridView.Columns["Id"].Visible = false;
+                TalabaFanDataGridView.Columns["Talaba"].HeaderText = "Talaba";
+                TalabaFanDataGridView.Columns["Fan"].HeaderText = "Fan";
+                TalabaFanDataGridView.Columns["Guruh"].HeaderText = "Guruh";
+                TalabaFanDataGridView.Columns["Baho"].HeaderText = "Baho";
+            }
+        }
+
+        private void TalabaFanDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = TalabaFanDataGridView.Rows[e.RowIndex];
+            selectedId = Convert.ToInt32(row.Cells["Id"].Value);
+
+            string talabaName = row.Cells["Talaba"].Value?.ToString();
+            string fanName = row.Cells["Fan"].Value?.ToString();
+            string guruhName = row.Cells["Guruh"].Value?.ToString();
+
+            int talabaIndex = TalabaComboBox.FindStringExact(talabaName);
+            TalabaComboBox.SelectedIndex = talabaIndex;
+
+            int fanIndex = FanComboBox.FindStringExact(fanName);
+            FanComboBox.SelectedIndex = fanIndex;
+
+            int guruhIndex = GuruhComboBox.FindStringExact(guruhName);
+            GuruhComboBox.SelectedIndex = guruhIndex;
+
+            if (row.Cells["Baho"].Value != DBNull.Value)
+                BahoniKiritish.Value = Convert.ToDecimal(row.Cells["Baho"].Value);
+            else
+                BahoniKiritish.Value = 0;
         }
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            string fan = FanComboBox.Text;
-            string guruh = GuruhComboBox.Text;
-            string talaba = TalabaComboBox.Text;
-            int baho = (int)BahoNumericUpDown.Value;
-
-            // Baho tekshiruvi
-            if (baho < 0 || baho > 100)
+            if (TalabaComboBox.SelectedIndex == -1 || FanComboBox.SelectedIndex == -1)
             {
-                MessageBox.Show("Baho 0 dan kichik yoki 100 dan katta bo'lishi mumkin emas!", "Xatolik", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Iltimos, talaba va fanlarni tanlang.");
                 return;
             }
 
-            // Avval qo‘yilgan bahoni tekshirish
-            if (baholar.Any(b => b.Fan == fan && b.Guruh == guruh && b.Talaba == talaba))
+            int studentId = (int)TalabaComboBox.SelectedValue;
+            int subjectId = (int)FanComboBox.SelectedValue;
+            int grade = (int)BahoniKiritish.Value;
+
+            if (CheckIfStudentSubjectExists(studentId, subjectId))
             {
-                MessageBox.Show("Bu talaba uchun ushbu fan va guruhga baho allaqachon qo‘yilgan!", "Xatolik", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Bu talaba ushbu fanga allaqachon biriktirilgan.");
                 return;
             }
 
-            baholar.Add(new BahoModel { Fan = fan, Guruh = guruh, Talaba = talaba, Baho = baho });
-            UpdateGrid();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO StudentSubjects (StudentId, SubjectId, Grade) VALUES (@StudentId, @SubjectId, @Grade)";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@StudentId", studentId);
+                    cmd.Parameters.AddWithValue("@SubjectId", subjectId);
+                    cmd.Parameters.AddWithValue("@Grade", grade);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            MessageBox.Show("Talaba fanga muvaffaqiyatli biriktirildi.");
+            LoadStudentSubjectsGrid();
+            ClearSelection();
         }
 
         private void upgBtn_Click(object sender, EventArgs e)
         {
-            string fan = FanComboBox.Text;
-            string guruh = GuruhComboBox.Text;
-            string talaba = TalabaComboBox.Text;
-            int baho = (int)BahoNumericUpDown.Value;
-
-            var existing = baholar.FirstOrDefault(b => b.Fan == fan && b.Guruh == guruh && b.Talaba == talaba);
-            if (existing == null)
+            if (selectedId == -1)
             {
-                MessageBox.Show("Ushbu talaba uchun hali baho qo‘yilmagan, yangilab bo‘lmaydi.", "Xatolik", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Iltimos, yangilash uchun yozuv tanlang.");
                 return;
             }
 
-            existing.Baho = baho;
-            UpdateGrid();
+            if (TalabaComboBox.SelectedIndex == -1 || FanComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Talaba va fan tanlanmagan.");
+                return;
+            }
+
+            int studentId = (int)TalabaComboBox.SelectedValue;
+            int subjectId = (int)FanComboBox.SelectedValue;
+            int grade = (int)BahoniKiritish.Value;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string checkQuery = @"
+                    SELECT COUNT(*) FROM StudentSubjects 
+                    WHERE StudentId = @StudentId AND SubjectId = @SubjectId AND Id <> @Id";
+                using (SqlCommand cmdCheck = new SqlCommand(checkQuery, conn))
+                {
+                    cmdCheck.Parameters.AddWithValue("@StudentId", studentId);
+                    cmdCheck.Parameters.AddWithValue("@SubjectId", subjectId);
+                    cmdCheck.Parameters.AddWithValue("@Id", selectedId);
+                    conn.Open();
+                    int count = (int)cmdCheck.ExecuteScalar();
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Bu bog‘lanish allaqachon mavjud.");
+                        return;
+                    }
+                }
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE StudentSubjects SET StudentId = @StudentId, SubjectId = @SubjectId, Grade = @Grade WHERE Id = @Id";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@StudentId", studentId);
+                    cmd.Parameters.AddWithValue("@SubjectId", subjectId);
+                    cmd.Parameters.AddWithValue("@Grade", grade);
+                    cmd.Parameters.AddWithValue("@Id", selectedId);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            MessageBox.Show("Ma'lumot yangilandi.");
+            LoadStudentSubjectsGrid();
+            ClearSelection();
         }
 
         private void delBtn_Click(object sender, EventArgs e)
         {
-            string fan = FanComboBox.Text;
-            string guruh = GuruhComboBox.Text;
-            string talaba = TalabaComboBox.Text;
-
-            var existing = baholar.FirstOrDefault(b => b.Fan == fan && b.Guruh == guruh && b.Talaba == talaba);
-            if (existing != null)
+            if (selectedId == -1)
             {
-                baholar.Remove(existing);
-                UpdateGrid();
+                MessageBox.Show("Iltimos, o‘chirish uchun yozuv tanlang.");
+                return;
             }
-            else
+
+            var confirm = MessageBox.Show("O‘chirishni xohlaysizmi?", "Tasdiq", MessageBoxButtons.YesNo);
+            if (confirm != DialogResult.Yes) return;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                MessageBox.Show("Ushbu yozuv topilmadi.", "Xatolik", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string query = "DELETE FROM StudentSubjects WHERE Id = @Id";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", selectedId);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            MessageBox.Show("Yozuv o‘chirildi.");
+            LoadStudentSubjectsGrid();
+            ClearSelection();
+        }
+
+        private bool CheckIfStudentSubjectExists(int studentId, int subjectId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM StudentSubjects WHERE StudentId = @StudentId AND SubjectId = @SubjectId";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@StudentId", studentId);
+                    cmd.Parameters.AddWithValue("@SubjectId", subjectId);
+                    conn.Open();
+                    return (int)cmd.ExecuteScalar() > 0;
+                }
+            }
+        }
+        private void GuruhComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (GuruhComboBox.SelectedIndex == -1)
+            {
+                TalabaComboBox.DataSource = null;
+                return;
+            }
+
+            int selectedGroupId = (int)GuruhComboBox.SelectedValue;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT Id, FullName FROM Students WHERE GroupId = @GroupId";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                adapter.SelectCommand.Parameters.AddWithValue("@GroupId", selectedGroupId);
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                TalabaComboBox.DisplayMember = "FullName";
+                TalabaComboBox.ValueMember = "Id";
+                TalabaComboBox.DataSource = dt;
+                TalabaComboBox.SelectedIndex = -1;
+            }
+        }
+        private void TalabaComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TalabaComboBox.SelectedIndex == -1)
+            {
+                FanComboBox.DataSource = null;
+                return;
+            }
+
+            int selectedStudentId = (int)TalabaComboBox.SelectedValue;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT su.Id, su.Name 
+            FROM Subjects su
+            INNER JOIN StudentSubjects ss ON su.Id = ss.SubjectId
+            WHERE ss.StudentId = @StudentId";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                adapter.SelectCommand.Parameters.AddWithValue("@StudentId", selectedStudentId);
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                FanComboBox.DisplayMember = "Name";
+                FanComboBox.ValueMember = "Id";
+                FanComboBox.DataSource = dt;
+                FanComboBox.SelectedIndex = -1;
             }
         }
 
-        private void UpdateGrid()
+        private void ClearSelection()
         {
-            OqituvchiFanDataGridView.DataSource = null;
-            OqituvchiFanDataGridView.DataSource = baholar;
+            selectedId = -1;
+            TalabaComboBox.SelectedIndex = -1;
+            FanComboBox.SelectedIndex = -1;
+            GuruhComboBox.SelectedIndex = -1;
+            BahoniKiritish.Value = 0;
+            TalabaFanDataGridView.ClearSelection();
         }
     }
 }
