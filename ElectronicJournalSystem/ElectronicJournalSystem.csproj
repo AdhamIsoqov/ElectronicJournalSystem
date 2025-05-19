@@ -142,12 +142,6 @@
     <Compile Include="Forms\Student\TalabaForm.Designer.cs">
       <DependentUpon>TalabaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Teacher\Fanlar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Teacher\Fanlar.Designer.cs">
-      <DependentUpon>Fanlar.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Teacher\OqituvchiForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,9 +188,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Student\TalabaForm.resx">
       <DependentUpon>TalabaForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Teacher\Fanlar.resx">
-      <DependentUpon>Fanlar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Teacher\OqituvchiForm.resx">
       <DependentUpon>OqituvchiForm.cs</DependentUpon>

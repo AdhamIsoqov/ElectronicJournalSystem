@@ -19,15 +19,6 @@ namespace ElectronicJournalSystem.Forms.Teacher
             this.teacherId = userId;
         }
         int teacherId = 0;
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Fanlar form = new Fanlar();
-            formPanel.Controls.Clear();
-            form.TopLevel = false;
-            form.BringToFront();
-            formPanel.Controls.Add(form);
-            form.Show();
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {

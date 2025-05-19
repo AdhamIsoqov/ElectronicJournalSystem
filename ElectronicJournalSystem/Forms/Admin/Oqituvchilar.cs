@@ -161,7 +161,39 @@ namespace ElectronicJournalSystem.Forms.Admin
 
         private void delBtn_Click(object sender, EventArgs e)
         {
+            if (selectedOqituvchiId == -1)
+            {
+                MessageBox.Show("Iltimos, o‘chirish uchun jadvaldan o‘qituvchini tanlang.");
+                return;
+            }
 
+            DialogResult result = MessageBox.Show("Ushbu o‘qituvchini o‘chirishni istaysizmi?", "Tasdiqlash", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        string query = "DELETE FROM Teachers WHERE Id = @Id";
+
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@Id", selectedOqituvchiId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    MessageBox.Show("O‘qituvchi muvaffaqiyatli o‘chirildi.", "Ma’lumot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OqituvchilarDataGridViewLoad();
+                    ClearInputs();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Xatolik yuz berdi: " + ex.Message, "Xatolik", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void ClearInputs()
