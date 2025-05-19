@@ -52,6 +52,7 @@
             this.TalabaComboBox.Name = "TalabaComboBox";
             this.TalabaComboBox.Size = new System.Drawing.Size(232, 33);
             this.TalabaComboBox.TabIndex = 48;
+            this.TalabaComboBox.SelectedIndexChanged += new System.EventHandler(this.TalabaComboBox_SelectedIndexChanged);
             // 
             // FanComboBox
             // 
@@ -70,6 +71,7 @@
             this.GuruhComboBox.Name = "GuruhComboBox";
             this.GuruhComboBox.Size = new System.Drawing.Size(225, 33);
             this.GuruhComboBox.TabIndex = 46;
+            this.GuruhComboBox.SelectedIndexChanged += new System.EventHandler(this.GuruhComboBox_SelectedIndexChanged);
             // 
             // addBtn
             // 
@@ -81,6 +83,7 @@
             this.addBtn.TabIndex = 45;
             this.addBtn.Text = "Qo\'shish";
             this.addBtn.UseVisualStyleBackColor = false;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // upgBtn
             // 
@@ -92,6 +95,7 @@
             this.upgBtn.TabIndex = 44;
             this.upgBtn.Text = "Yangilash";
             this.upgBtn.UseVisualStyleBackColor = false;
+            this.upgBtn.Click += new System.EventHandler(this.upgBtn_Click);
             // 
             // delBtn
             // 
@@ -103,6 +107,7 @@
             this.delBtn.TabIndex = 43;
             this.delBtn.Text = "O\'chirish";
             this.delBtn.UseVisualStyleBackColor = false;
+            this.delBtn.Click += new System.EventHandler(this.delBtn_Click);
             // 
             // label3
             // 
@@ -142,6 +147,7 @@
             this.TalabaFanDataGridView.RowTemplate.Height = 24;
             this.TalabaFanDataGridView.Size = new System.Drawing.Size(916, 488);
             this.TalabaFanDataGridView.TabIndex = 39;
+            this.TalabaFanDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TalabaFanDataGridView_CellClick);
             // 
             // label4
             // 

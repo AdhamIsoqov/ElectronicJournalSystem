@@ -31,7 +31,7 @@ namespace ElectronicJournalSystem.Forms.Teacher
 
         private void button2_Click(object sender, EventArgs e)
         {
-            TalabalarRoyxati form = new TalabalarRoyxati();
+            TalabalarRoyxati form = new TalabalarRoyxati(teacherId);
             formPanel.Controls.Clear();
             form.TopLevel = false;
             form.BringToFront();
