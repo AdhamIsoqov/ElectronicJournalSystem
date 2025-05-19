@@ -11,15 +11,26 @@ namespace ElectronicJournalSystem.Forms.Teacher
         private int currentTeacherId;
         private string connectionString = ConfigurationManager.ConnectionStrings["ElectronicJurnalDB"].ConnectionString;
 
+        private int selectedGradeId = -1;  // Tanlangan qatorning Grades.Id ni saqlash uchun
+
         public TalabalarRoyxati(int teacherId)
         {
             InitializeComponent();
+
             currentTeacherId = teacherId;
+
+            GuruhComboBox.SelectedIndexChanged += GuruhComboBox_SelectedIndexChanged;
+            TalabaComboBox.SelectedIndexChanged += TalabaComboBox_SelectedIndexChanged;
+            TalabaFanDataGridView.CellClick += TalabaFanDataGridView_CellClick;
         }
 
         private void TalabalarRoyxati_Load(object sender, EventArgs e)
         {
             LoadGroups();
+
+            if (GuruhComboBox.Items.Count > 0)
+                GuruhComboBox.SelectedIndex = 0;
+
             LoadStudentSubjectData();
         }
 
@@ -51,6 +62,9 @@ namespace ElectronicJournalSystem.Forms.Teacher
                 TalabaComboBox.DataSource = studentsTable;
                 TalabaComboBox.DisplayMember = "FullName";
                 TalabaComboBox.ValueMember = "Id";
+
+                if (TalabaComboBox.Items.Count > 0)
+                    TalabaComboBox.SelectedIndex = 0;
             }
         }
 
@@ -70,6 +84,9 @@ namespace ElectronicJournalSystem.Forms.Teacher
                 FanComboBox.DataSource = subjectsTable;
                 FanComboBox.DisplayMember = "Name";
                 FanComboBox.ValueMember = "Id";
+
+                if (FanComboBox.Items.Count > 0)
+                    FanComboBox.SelectedIndex = 0;
             }
         }
 
@@ -78,6 +95,7 @@ namespace ElectronicJournalSystem.Forms.Teacher
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"SELECT 
+                                    g.Id AS GradeId,
                                     st.Id AS StudentId,
                                     st.FullName AS Student,
                                     su.Id AS SubjectId,
@@ -100,12 +118,14 @@ namespace ElectronicJournalSystem.Forms.Teacher
                     TalabaFanDataGridView.Columns["StudentId"].Visible = false;
                 if (TalabaFanDataGridView.Columns.Contains("SubjectId"))
                     TalabaFanDataGridView.Columns["SubjectId"].Visible = false;
+                if (TalabaFanDataGridView.Columns.Contains("GradeId"))
+                    TalabaFanDataGridView.Columns["GradeId"].Visible = false;
             }
         }
 
         private void GuruhComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (GuruhComboBox.SelectedValue is int groupId)
+            if (GuruhComboBox.SelectedValue != null && int.TryParse(GuruhComboBox.SelectedValue.ToString(), out int groupId))
             {
                 LoadStudents(groupId);
             }
@@ -113,7 +133,7 @@ namespace ElectronicJournalSystem.Forms.Teacher
 
         private void TalabaComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TalabaComboBox.SelectedValue is int studentId)
+            if (TalabaComboBox.SelectedValue != null && int.TryParse(TalabaComboBox.SelectedValue.ToString(), out int studentId))
             {
                 LoadSubjects(studentId);
             }
@@ -121,6 +141,12 @@ namespace ElectronicJournalSystem.Forms.Teacher
 
         private void addBtn_Click(object sender, EventArgs e)
         {
+            if (TalabaComboBox.SelectedValue == null || FanComboBox.SelectedValue == null)
+            {
+                MessageBox.Show("Iltimos, talaba va fanni tanlang.");
+                return;
+            }
+
             int studentId = (int)TalabaComboBox.SelectedValue;
             int subjectId = (int)FanComboBox.SelectedValue;
             int grade = (int)BahoniKiritish.Value;
@@ -129,6 +155,7 @@ namespace ElectronicJournalSystem.Forms.Teacher
             {
                 conn.Open();
 
+                // StudentSubjects da borligini tekshirish
                 string checkQuery = "SELECT COUNT(*) FROM [dbo].[StudentSubjects] WHERE StudentId = @StudentId AND SubjectId = @SubjectId";
                 SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
                 checkCmd.Parameters.AddWithValue("@StudentId", studentId);
@@ -144,6 +171,7 @@ namespace ElectronicJournalSystem.Forms.Teacher
                     insertCmd.ExecuteNonQuery();
                 }
 
+                // Bahoni qo'shish
                 string gradeQuery = @"INSERT INTO [dbo].[Grades] (TeacherId, Grade, Date, StudentSubjectId)
                                       VALUES (@TeacherId, @Grade, @Date, 
                                       (SELECT Id FROM [dbo].[StudentSubjects] WHERE StudentId = @StudentId AND SubjectId = @SubjectId))";
@@ -164,8 +192,12 @@ namespace ElectronicJournalSystem.Forms.Teacher
         {
             if (TalabaFanDataGridView.SelectedRows.Count > 0)
             {
-                int studentId = (int)TalabaComboBox.SelectedValue;
-                int subjectId = (int)FanComboBox.SelectedValue;
+                if (selectedGradeId == -1)
+                {
+                    MessageBox.Show("Iltimos, yangilamoqchi bo'lgan qatorni tanlang.");
+                    return;
+                }
+
                 int grade = (int)BahoniKiritish.Value;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -174,15 +206,11 @@ namespace ElectronicJournalSystem.Forms.Teacher
 
                     string query = @"UPDATE [dbo].[Grades]
                                      SET Grade = @Grade
-                                     WHERE StudentSubjectId = (
-                                         SELECT Id FROM [dbo].[StudentSubjects]
-                                         WHERE StudentId = @StudentId AND SubjectId = @SubjectId
-                                     )";
+                                     WHERE Id = @GradeId";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Grade", grade);
-                    cmd.Parameters.AddWithValue("@StudentId", studentId);
-                    cmd.Parameters.AddWithValue("@SubjectId", subjectId);
+                    cmd.Parameters.AddWithValue("@GradeId", selectedGradeId);
                     cmd.ExecuteNonQuery();
 
                     MessageBox.Show("Baho muvaffaqiyatli yangilandi!");
@@ -199,22 +227,21 @@ namespace ElectronicJournalSystem.Forms.Teacher
         {
             if (TalabaFanDataGridView.SelectedRows.Count > 0)
             {
-                int studentId = (int)TalabaComboBox.SelectedValue;
-                int subjectId = (int)FanComboBox.SelectedValue;
+                if (selectedGradeId == -1)
+                {
+                    MessageBox.Show("Iltimos, o'chirmoqchi bo'lgan qatorni tanlang.");
+                    return;
+                }
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
                     string query = @"DELETE FROM [dbo].[Grades]
-                                     WHERE StudentSubjectId = (
-                                         SELECT Id FROM [dbo].[StudentSubjects]
-                                         WHERE StudentId = @StudentId AND SubjectId = @SubjectId
-                                     )";
+                                     WHERE Id = @GradeId";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@StudentId", studentId);
-                    cmd.Parameters.AddWithValue("@SubjectId", subjectId);
+                    cmd.Parameters.AddWithValue("@GradeId", selectedGradeId);
                     cmd.ExecuteNonQuery();
 
                     MessageBox.Show("Baho muvaffaqiyatli o'chirildi!");
@@ -230,17 +257,31 @@ namespace ElectronicJournalSystem.Forms.Teacher
         private void TalabaFanDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
-            {
+                {
                 DataGridViewRow row = TalabaFanDataGridView.Rows[e.RowIndex];
+
+                // Tanlangan GradeId ni olish
+                if (row.Cells["GradeId"].Value != null)
+                    selectedGradeId = Convert.ToInt32(row.Cells["GradeId"].Value);
+                else
+                    selectedGradeId = -1;
+
                 int studentId = Convert.ToInt32(row.Cells["StudentId"].Value);
                 int subjectId = Convert.ToInt32(row.Cells["SubjectId"].Value);
                 int grade = Convert.ToInt32(row.Cells["Grade"].Value);
 
                 TalabaComboBox.SelectedValue = studentId;
-                LoadSubjects(studentId); // combo boxni qayta to‘ldirish
+
+                // TalabaComboBox.SelectedIndexChanged da LoadSubjects chaqiriladi,
+                // ammo biz bunga hozirda kerak, shuning uchun manual chaqiramiz:
+                LoadSubjects(studentId);
+
+                // FanComboBox ni tanlash uchun kichik kechikish yoki event orqali boshqarish kerak bo'lishi mumkin.
+                // Ammo oddiy holda quyidagicha yozamiz:
                 FanComboBox.SelectedValue = subjectId;
+
                 BahoniKiritish.Value = grade;
             }
         }
-    }
+    } 
 }

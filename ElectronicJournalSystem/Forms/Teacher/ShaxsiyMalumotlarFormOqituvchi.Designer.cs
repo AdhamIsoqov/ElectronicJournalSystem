@@ -106,6 +106,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ShaxsiyMalumotlarFormOqituvchi";
             this.Text = "ShaxsiyMalumotlarForm";
+            this.Load += new System.EventHandler(this.ShaxsiyMalumotlarFormOqituvchi_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

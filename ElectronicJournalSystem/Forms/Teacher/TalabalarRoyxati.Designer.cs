@@ -187,6 +187,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TalabalarRoyxati";
             this.Text = "TalabalarRoyxati";
+            this.Load += new System.EventHandler(this.TalabalarRoyxati_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TalabaFanDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BahoniKiritish)).EndInit();
             this.ResumeLayout(false);

@@ -43,5 +43,15 @@ namespace ElectronicJournalSystem.Forms.Teacher
         {
             Application.Exit();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ShaxsiyMalumotlarFormOqituvchi shaxsiyMalumotlarFormOqituvchi = new ShaxsiyMalumotlarFormOqituvchi(teacherId);
+            shaxsiyMalumotlarFormOqituvchi.TopLevel = false;
+            shaxsiyMalumotlarFormOqituvchi.BringToFront();
+            formPanel.Controls.Clear();
+            formPanel.Controls.Add(shaxsiyMalumotlarFormOqituvchi);
+            shaxsiyMalumotlarFormOqituvchi.Show();
+        }
     }
 }
