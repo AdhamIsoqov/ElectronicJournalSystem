@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Configuration;
 using System.Data.SqlClient;
+using System.Configuration;
+using System.Windows.Forms;
 
 namespace ElectronicJournalSystem.Forms.Admin
 {
@@ -33,15 +27,25 @@ namespace ElectronicJournalSystem.Forms.Admin
                 try
                 {
                     conn.Open();
-                    string query = @"SELECT g.Id, s.FullName AS Student, sb.Name AS Subject, t.FullName AS Teacher, g.Grade, g.Date
-                                     FROM Grades g
-                                     JOIN Students s ON g.StudentId = s.Id
-                                     JOIN Subjects sb ON g.SubjectId = sb.Id
-                                     JOIN Teachers t ON g.TeacherId = t.Id";
+                    string query = @"
+                        SELECT 
+                            g.Id, 
+                            s.FullName AS Student, 
+                            sb.Name AS Subject, 
+                            COALESCE(t.FullName, 'Belgilanmagan') AS Teacher, 
+                            g.Grade, 
+                            g.Date
+                        FROM Grades g
+                        JOIN StudentSubjects ss ON g.StudentSubjectId = ss.Id
+                        JOIN Students s ON ss.StudentId = s.Id
+                        JOIN Subjects sb ON ss.SubjectId = sb.Id
+                        LEFT JOIN Teachers t ON g.TeacherId = t.Id";
+
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     BaholarDataGridView.DataSource = dt;
+
                     BaholarDataGridView.Columns["Id"].HeaderText = "ID";
                     BaholarDataGridView.Columns["Student"].HeaderText = "Talaba";
                     BaholarDataGridView.Columns["Subject"].HeaderText = "Fan";

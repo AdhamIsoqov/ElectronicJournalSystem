@@ -10,11 +10,12 @@ namespace ElectronicJournalSystem.Forms.Admin
     {
         string connectionString = ConfigurationManager.ConnectionStrings["ElectronicJurnalDB"].ConnectionString;
 
-        public AdminForm()
+        public AdminForm(int userId)
         {
             InitializeComponent();
+            this.adminId = userId;
         }
-
+        int adminId = 0;
         private void button1_Click(object sender, EventArgs e)
         {
             Oqituvchilar form = new Oqituvchilar();
@@ -67,7 +68,17 @@ namespace ElectronicJournalSystem.Forms.Admin
 
         private void button7_Click(object sender, EventArgs e)
         {
-            
+            Application.Exit();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            TalabalarniBiriktirish form = new TalabalarniBiriktirish();
+            form.TopLevel = false;
+            formPanel.Controls.Clear();
+            form.BringToFront();
+            formPanel.Controls.Add(form);
+            form.Show();
         }
     }
 }

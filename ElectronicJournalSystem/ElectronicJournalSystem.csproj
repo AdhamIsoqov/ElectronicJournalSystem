@@ -106,11 +106,53 @@
     <Compile Include="Forms\Admin\Talabalar.Designer.cs">
       <DependentUpon>Talabalar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Admin\TalabalarniBiriktirish.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin\TalabalarniBiriktirish.Designer.cs">
+      <DependentUpon>TalabalarniBiriktirish.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Student\BaholarniKorishForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Student\BaholarniKorishForm.Designer.cs">
+      <DependentUpon>BaholarniKorishForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Student\ShaxsiyMalumotlarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Student\ShaxsiyMalumotlarForm.Designer.cs">
+      <DependentUpon>ShaxsiyMalumotlarForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Student\TalabaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Student\TalabaForm.Designer.cs">
+      <DependentUpon>TalabaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Teacher\Fanlar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Teacher\Fanlar.Designer.cs">
+      <DependentUpon>Fanlar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Teacher\OqituvchiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Teacher\OqituvchiForm.Designer.cs">
+      <DependentUpon>OqituvchiForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Teacher\TalabalarRoyxati.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Teacher\TalabalarRoyxati.Designer.cs">
+      <DependentUpon>TalabalarRoyxati.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +173,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Admin\Talabalar.resx">
       <DependentUpon>Talabalar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin\TalabalarniBiriktirish.resx">
+      <DependentUpon>TalabalarniBiriktirish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Student\BaholarniKorishForm.resx">
+      <DependentUpon>BaholarniKorishForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Student\ShaxsiyMalumotlarForm.resx">
+      <DependentUpon>ShaxsiyMalumotlarForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Student\TalabaForm.resx">
+      <DependentUpon>TalabaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Teacher\Fanlar.resx">
+      <DependentUpon>Fanlar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Teacher\OqituvchiForm.resx">
+      <DependentUpon>OqituvchiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Teacher\TalabalarRoyxati.resx">
+      <DependentUpon>TalabalarRoyxati.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -175,9 +238,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\Student\" />
-    <Folder Include="Forms\Teacher\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
