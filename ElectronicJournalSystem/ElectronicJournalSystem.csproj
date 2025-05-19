@@ -124,6 +124,12 @@
     <Compile Include="Forms\Student\BaholarniKorishForm.Designer.cs">
       <DependentUpon>BaholarniKorishForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Teacher\ShaxsiyMalumotlarFormOqituvchi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Teacher\ShaxsiyMalumotlarFormOqituvchi.Designer.cs">
+      <DependentUpon>ShaxsiyMalumotlarFormOqituvchi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Student\ShaxsiyMalumotlarForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Student\BaholarniKorishForm.resx">
       <DependentUpon>BaholarniKorishForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Teacher\ShaxsiyMalumotlarFormOqituvchi.resx">
+      <DependentUpon>ShaxsiyMalumotlarFormOqituvchi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Student\ShaxsiyMalumotlarForm.resx">
       <DependentUpon>ShaxsiyMalumotlarForm.cs</DependentUpon>

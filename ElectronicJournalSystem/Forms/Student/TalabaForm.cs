@@ -20,7 +20,7 @@ namespace ElectronicJournalSystem.Forms.Student
         int studentId = 0;
         private void button1_Click(object sender, EventArgs e)
         {
-            ShaxsiyMalumotlarForm form = new ShaxsiyMalumotlarForm();
+            ShaxsiyMalumotlarForm form = new ShaxsiyMalumotlarForm(studentId);
             formPanel.Controls.Clear();
             form.TopLevel = false;
             form.BringToFront();

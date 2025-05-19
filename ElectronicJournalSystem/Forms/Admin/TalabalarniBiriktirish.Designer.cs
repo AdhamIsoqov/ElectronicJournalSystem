@@ -2,7 +2,6 @@
 {
     partial class TalabalarniBiriktirish
     {
-        private System.ComponentModel.IContainer components = null;
 
         private void InitializeComponent()
         {
@@ -16,16 +15,21 @@
             this.TalabaFanDataGridView = new System.Windows.Forms.DataGridView();
             this.FanComboBox = new System.Windows.Forms.ComboBox();
             this.TalabaComboBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.BahoniKiritish = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.TalabaFanDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BahoniKiritish)).BeginInit();
             this.SuspendLayout();
             // 
             // GuruhComboBox
             // 
+            this.GuruhComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GuruhComboBox.FormattingEnabled = true;
-            this.GuruhComboBox.Location = new System.Drawing.Point(331, 559);
+            this.GuruhComboBox.Location = new System.Drawing.Point(254, 559);
             this.GuruhComboBox.Name = "GuruhComboBox";
-            this.GuruhComboBox.Size = new System.Drawing.Size(303, 33);
+            this.GuruhComboBox.Size = new System.Drawing.Size(226, 33);
             this.GuruhComboBox.TabIndex = 36;
+            this.GuruhComboBox.SelectedIndexChanged += new System.EventHandler(this.GuruhComboBox_SelectedIndexChanged);
             // 
             // addBtn
             // 
@@ -66,7 +70,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(635, 531);
+            this.label3.Location = new System.Drawing.Point(481, 531);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 25);
             this.label3.TabIndex = 28;
@@ -75,7 +79,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(326, 531);
+            this.label2.Location = new System.Drawing.Point(249, 531);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 25);
             this.label2.TabIndex = 27;
@@ -101,28 +105,48 @@
             this.TalabaFanDataGridView.RowTemplate.Height = 24;
             this.TalabaFanDataGridView.Size = new System.Drawing.Size(916, 488);
             this.TalabaFanDataGridView.TabIndex = 25;
-            this.TalabaFanDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TalabaFanDataGridView_CellClick);
+            this.TalabaFanDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TalabaFanDataGridView_CellClick);
             // 
             // FanComboBox
             // 
+            this.FanComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FanComboBox.FormattingEnabled = true;
             this.FanComboBox.Location = new System.Drawing.Point(34, 559);
             this.FanComboBox.Name = "FanComboBox";
-            this.FanComboBox.Size = new System.Drawing.Size(291, 33);
+            this.FanComboBox.Size = new System.Drawing.Size(214, 33);
             this.FanComboBox.TabIndex = 37;
-            this.FanComboBox.SelectedIndexChanged += new System.EventHandler(this.FanComboBox_SelectedIndexChanged);
             // 
             // TalabaComboBox
             // 
+            this.TalabaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TalabaComboBox.FormattingEnabled = true;
-            this.TalabaComboBox.Location = new System.Drawing.Point(640, 559);
+            this.TalabaComboBox.Location = new System.Drawing.Point(486, 559);
             this.TalabaComboBox.Name = "TalabaComboBox";
-            this.TalabaComboBox.Size = new System.Drawing.Size(310, 33);
+            this.TalabaComboBox.Size = new System.Drawing.Size(233, 33);
             this.TalabaComboBox.TabIndex = 38;
+            this.TalabaComboBox.SelectedIndexChanged += new System.EventHandler(this.TalabaComboBox_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(725, 531);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 25);
+            this.label4.TabIndex = 39;
+            this.label4.Text = "Talaba";
+            // 
+            // BahoniKiritish
+            // 
+            this.BahoniKiritish.Location = new System.Drawing.Point(730, 559);
+            this.BahoniKiritish.Name = "BahoniKiritish";
+            this.BahoniKiritish.Size = new System.Drawing.Size(217, 30);
+            this.BahoniKiritish.TabIndex = 40;
             // 
             // TalabalarniBiriktirish
             // 
             this.ClientSize = new System.Drawing.Size(985, 694);
+            this.Controls.Add(this.BahoniKiritish);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.TalabaComboBox);
             this.Controls.Add(this.FanComboBox);
             this.Controls.Add(this.GuruhComboBox);
@@ -137,7 +161,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TalabalarniBiriktirish";
             this.Text = "Talabalarni guruhga biriktirish";
+            this.Load += new System.EventHandler(this.TalabalarniBiriktirish_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TalabaFanDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BahoniKiritish)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -153,5 +179,7 @@
         private System.Windows.Forms.DataGridView TalabaFanDataGridView;
         private System.Windows.Forms.ComboBox FanComboBox;
         private System.Windows.Forms.ComboBox TalabaComboBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown BahoniKiritish;
     }
 }

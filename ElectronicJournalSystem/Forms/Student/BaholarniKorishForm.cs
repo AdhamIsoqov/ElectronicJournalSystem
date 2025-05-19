@@ -42,9 +42,11 @@ namespace ElectronicJournalSystem.Forms.Student
                             g.Grade AS Baho,
                             g.Date AS Sana
                         FROM Grades g
-                        LEFT JOIN Subjects sub ON g.SubjectId = sub.Id
+                        INNER JOIN StudentSubjects ss ON g.StudentSubjectId = ss.Id
+                        INNER JOIN Subjects sub ON ss.SubjectId = sub.Id
                         LEFT JOIN Teachers t ON g.TeacherId = t.Id
-                        WHERE g.StudentId = @StudentId";
+                        WHERE ss.StudentId = @StudentId
+                        ORDER BY g.Date DESC";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@StudentId", currentStudentId);
@@ -54,10 +56,14 @@ namespace ElectronicJournalSystem.Forms.Student
                     adapter.Fill(dt);
 
                     BahoDataGridView.DataSource = dt;
-                    BahoDataGridView.Columns["Fan"].HeaderText = "Fan nomi";
-                    BahoDataGridView.Columns["Oqituvchi"].HeaderText = "O‘qituvchi";
-                    BahoDataGridView.Columns["Baho"].HeaderText = "Baho";
-                    BahoDataGridView.Columns["Sana"].HeaderText = "Sana";
+                    if (BahoDataGridView.Columns.Contains("Fan"))
+                        BahoDataGridView.Columns["Fan"].HeaderText = "Fan nomi";
+                    if (BahoDataGridView.Columns.Contains("Oqituvchi"))
+                        BahoDataGridView.Columns["Oqituvchi"].HeaderText = "O‘qituvchi";
+                    if (BahoDataGridView.Columns.Contains("Baho"))
+                        BahoDataGridView.Columns["Baho"].HeaderText = "Baho";
+                    if (BahoDataGridView.Columns.Contains("Sana"))
+                        BahoDataGridView.Columns["Sana"].HeaderText = "Sana";
                 }
                 catch (Exception ex)
                 {

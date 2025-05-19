@@ -38,6 +38,7 @@
             this.BahoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BahoDataGridView.Location = new System.Drawing.Point(40, 36);
             this.BahoDataGridView.Name = "BahoDataGridView";
+            this.BahoDataGridView.ReadOnly = true;
             this.BahoDataGridView.RowHeadersWidth = 51;
             this.BahoDataGridView.RowTemplate.Height = 24;
             this.BahoDataGridView.Size = new System.Drawing.Size(891, 605);
